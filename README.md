@@ -37,7 +37,7 @@ You will be better equipped to work through this lesson if you have experience i
 
 ## Teacher Notes
 
-*   **Time Estimate: **45 minutes
+*   **Time Estimate:** 45 minutes
 *   Performing a live demo while teaching the steps to make a child theme is crucial to having the material "click" for students.
 *   It is easiest for students to work on a locally installed copy of WordPress. Set some time aside before class to assist students with installing WordPress locally if they need it. For more information on how to install WordPress locally, please visit our [Teacher Resources page](http://make.wordpress.org/training/teacher-resources/).
 *   The preferred answers to the screening questions is "yes." Participants who reply "no" to all 4 questions may not be ready for this lesson.
@@ -57,9 +57,9 @@ The #1 Rule of WordPress development is to **never directly modify WordPress fil
 
 *   WordPress core files
 *   Plugin files
-*   Theme files*
+*   Theme files
 
-*Exception: starter themes that have been intentionally created by theme builders for you to modify. **Why?**
+Exception: starter themes that have been intentionally created by theme builders for you to modify. **Why?**
 
 *   *   **Updates wipe out customization changes**
 
@@ -101,7 +101,7 @@ At a minimum, your child theme needs a `style.css` file. The `style.css` file te
  Description: The custom theme [Your Theme Name] using the parent theme Twenty Sixteen.
  Author: [You]
  Author URI: [Your URL]
- Template: <span style="color: red">twentysixteen</span>
+ Template: twentysixteen
  Version: 1
  */
 </pre>
@@ -112,7 +112,7 @@ There are other variables you can include, but these are the most important ones
 *   **Description:** A short description for the theme. You can put anything you like here. This shows up in the WordPress Dashboard under Appearance > Themes once the theme is activated.
 *   **Author:** The author of the child theme, which can be a person's name or company name.
 *   **Author URI:** The URL for the author of the child theme.
-*   **Template:** <span style="color: #ff0000">**Very important!**</span> This is **the folder name of the parent theme**. If this variable is not correct the child theme will not work.
+*   **Template: Very important!** This is **the folder name of the parent theme**. If this variable is not correct the child theme will not work.
 *   **Version:** The version of the child theme
 
 All of these variables are optional, with the exception of `**Template:**`. If this line is not present or contains typos the child theme will not work.
@@ -180,22 +180,23 @@ Now the site title is 4.75rem instead of 1.75rem. [![](https://make.wordpress.or
 
 [Templates](http://codex.wordpress.org/Templates) are the files that control how your WordPress site will be displayed on the Web. Inside the `twentysixteen` folder are all of Twenty Thirteen's template files. You can create your own versions of these files in your child theme. [![](https://make.wordpress.org/training/files/2016/11/twenty-sixteen-files-1024x542.png)](https://make.wordpress.org/training/files/2016/11/twenty-sixteen-files.png) Let's say you want to replace the text "Proudly powered by WordPress" in the footer with a copyright. Here's how it looks now:   [![](https://make.wordpress.org/training/files/2016/11/twenty-sixteen-default-footer-1024x262.png)](https://make.wordpress.org/training/files/2016/11/twenty-sixteen-default-footer.png) Open `footer.php` in the `twentysixteen` folder. You can see the code that needs to be edited:
 
-<pre> <div class="site-info">
+```PHP
+<div class="site-info">
 	<?php do_action( 'twentythirteen_credits' ); ?>
 	<a href="<?php echo esc_url( __( 'http://wordpress.org/', 'twentythirteen' ) ); ?>" 
         title="<?php esc_attr_e( 'Semantic Personal Publishing Platform', 'twentythirteen' ); ?>"
         ><?php printf( __( 'Proudly powered by %s', 'twentythirteen' ), 'WordPress' ); ?></a>
  </div><!-- .site-info -->
 
-</pre>
+```
 
 Save a copy of `footer.php` into the child theme folder. Edits can safely be made to the child theme file, leaving the original copy of `footer.php` in `wp-content/themes/twentysixteen` intact. Just like our other child theme files, `wp-content/themes/mychildtheme/footer.php` will override the parent copy. To display a copyright line, replace the content above in `footer.php` in `wp-content/themes/mychildtheme` with the following code:
 
-<pre> <div class="site-info">
+```PHP
+<div class="site-info">
 	Copyright &copy; <?php echo date('Y'); ?>
  </div><!-- .site-info -->
-
-</pre>
+```
 
 The result on the front-end of the site: [![](https://make.wordpress.org/training/files/2016/11/mycildtheme-footer-300x97.png)](https://make.wordpress.org/training/files/2016/11/mycildtheme-footer.png)
 
@@ -205,7 +206,8 @@ The result on the front-end of the site: [![](https://make.wordpress.org/trainin
 
 In addition to being able to override existing templates with a child theme, you can also create new templates. Let's say you want to add a new template without a sidebar. Make a copy of `page.php` in your child theme and rename it `page-nosidebar.php`. Edit the existing code at the top:
 
-<pre> <?php
+```PHP
+<?php
  /**
   * The template for displaying all pages
   *
@@ -219,26 +221,25 @@ In addition to being able to override existing templates with a child theme, you
   */
 
  get_header(); ?>
-
-</pre>
+```
 
 To:
 
-<pre> <?php
+```PHP
+<?php
  /*
  Template Name: Page with no sidebar
  */
 
  get_header(); ?>
-
-</pre>
+```
 
 The name of the template goes after the variable `Template Name:`. Finally, find and remove the line of code which loads the sidebar. This is called `get_sidebar();`:
 
-<pre> <?php get_sidebar(); // delete this entire line ?> 
- <?php get_footer(); // leave this line in! ?>
-
-</pre>
+```PHP
+<?php get_sidebar(); // delete this entire line ?> 
+<?php get_footer(); // leave this line in! ?>
+```
 
 The new template will now appear under **Page Attributes** on the Edit Page screen: ![newtemplate3](http://make.wordpress.org/training/files/2013/10/newtemplate3.png)
 
